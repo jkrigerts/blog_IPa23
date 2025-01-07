@@ -12,14 +12,17 @@ $config = require("config.php");
 
 echo "<h1>Blogs</h1>";
 $db = new Database($config["database"]);
-$posts = $db->query("SELECT * FROM posts")->fetchAll();
-// SELECT * FROM posts WHERE content LIKE "To kas ir search_query";
 
+$sql = "SELECT * FROM posts";
+$params = [];
 if (isset($_GET["search_query"]) && $_GET["search_query"] != "") {
-  // TODO: Meklēšanas loģika
-  dd("SELECT * FROM posts WHERE content LIKE '" . $_GET["search_query"] . "';");
-  $posts = $db->query("SELECT * FROM posts WHERE content LIKE " . $_GET["search_query"])->fetchAll();
-};
+  // Meklēšanas loģika
+  $search_query = "%" . $_GET["search_query"] . "%";
+  $sql .= " WHERE content LIKE :search_query;"; // Bind parameter
+  $params = ["search_query" => $search_query];
+}
+
+$posts = $db->query($sql, $params)->fetchAll();
 
 // Meklēšanas forma
 // POST - ja maina datu bāzē saturu

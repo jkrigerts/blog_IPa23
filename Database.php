@@ -14,10 +14,10 @@ class Database {
     }
 
     // Uztaisīt metodi query
-    public function query($sql) {
+    public function query($sql, $params) {
         $statement = $this->pdo->prepare($sql);
         // Izpildīt vaicājumu
-        $statement->execute();
+        $statement->execute($params);
         return $statement;
     }
 }
