@@ -10,7 +10,6 @@ require "Database.php";
 
 $config = require("config.php");
 
-echo "<h1>Blogs</h1>";
 $db = new Database($config["database"]);
 
 $sql = "SELECT * FROM posts";
@@ -24,18 +23,4 @@ if (isset($_GET["search_query"]) && $_GET["search_query"] != "") {
 
 $posts = $db->query($sql, $params)->fetchAll();
 
-// Meklēšanas forma
-// POST - ja maina datu bāzē saturu
-// GET - ja vienkārši atlasa datus
-echo "<form>";
-echo "<input name='search_query' />";
-echo "<button>Meklēt</button>";
-echo "</form>";
-
-
-echo "<ul>";
-  foreach ($posts as $post) {
-    echo "<li>" . $post["content"] . "</li>";
-  }
-echo "</ul>";
-
+require "views/index.view.php";
