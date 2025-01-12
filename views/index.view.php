@@ -1,22 +1,21 @@
-<!DOCTYPE html>
-<html lang="lv">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blogs</title>
-</head>
-<body>
-  <h1>Blogs</h1>
+<?php require "components/header.php" ?>
+<?php require "components/navbar.php" ?>
 
-  <form>
-    <input name='search_query' value='<?= $_GET["search_query"] ?? "" ?>' />
-    <button>Meklēt</button>
-  </form>
+<h1>Blogs</h1>
 
-  <ul>
-    <?php foreach ($posts as $post) { ?>
-      <li> <?= $post["content"] ?> </li>
-    <?php } ?>
-  </ul>
-</body>
-</html>
+<form>
+  <input name='search_query' value='<?= $_GET["search_query"] ?? "" ?>' />
+  <button>Meklēt</button>
+</form>
+
+<?php if (count($posts) == 0) { ?>
+  <p>Neko neatradu, meklē citu vārdu 🙂</p>
+<?php } ?>
+
+<ul>
+  <?php foreach ($posts as $post) { ?>
+    <li> <?= $post["content"] ?> </li>
+  <?php } ?>
+</ul>
+
+<?php require "components/footer.php" ?>
